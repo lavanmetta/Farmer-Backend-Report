@@ -14,19 +14,20 @@ return new class extends Migration
     public function up()
     {
         Schema::create('userdata', function (Blueprint $table) {
+            $table->increments('id');
+            $table->bigInteger('phoneNumber');
             $table->string('firstName');
             $table->string('lastName');
-            $table->bigInteger('phoneNumber');
             $table->string('village');
             $table->string('mandal');
             $table->string('cropVariety');
-            $table->string('totalAcres');
+            $table->integer('totalAcres');
             $table->string('farmingIpm');
-            $table->string('farmingAcres');
+            $table->integer('farmingAcres');
             $table->string('semiOrganics');
-            $table->string('semiAcres');
+            $table->integer('semiAcres');
             $table->string('organics');
-            $table->string('orgAcres');
+            $table->integer('orgAcres');
             $table->date('date');
             $table->string('manureOrganic');
             $table->string('drip');
