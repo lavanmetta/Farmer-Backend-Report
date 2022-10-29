@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\userdata;
+use Illuminate\Support\Facades\DB;
+
+
 
 class userdataController extends Controller
 {
@@ -15,7 +18,26 @@ class userdataController extends Controller
             'status', 200,
             'getuser'=>$getuser,
         ]);
+       
     }
+
+
+    public function report( Request $request)
+    { 
+        if (isset($_GET['query'])) {
+            $search_text = $_GET['query'];
+
+            $users = DB :: table('userdata') -> where('phoneNumber', 'LIKE',  $search_text); 
+            $Topusers = DB :: table('userdata') -> where('phoneNumber', 'LIKE',  $search_text) -> take(1);
+            return view('userview', ['Topusers' => $Topusers->get()], ['users' => $users->get()]);
+            
+
+        } else {
+            return view('userview');
+        }
+      
+    }
+    
 
     public function store(Request $request)
     {
